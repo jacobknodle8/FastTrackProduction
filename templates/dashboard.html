@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FastTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+          rel="stylesheet" />
+    <link rel="shortcut icon" href="static/images/FastTrack-2.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="static/css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="container-wide">
+            <div class="logo">
+                <a href="/">
+                    <img src="../static/images/FastTrack 2.png" alt="logo" style="height: 50px;" />
+                </a>
+            </div>
+            <div class="container">
+                <div class="main-menu">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/sim_meet">Sim Meet</a></li>
+                        <li><a href="/score_meet">Score Meet</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/notifications">Notifications</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="chart-container">
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div class="stats-box item-left">
+                    <div class="stats-item" style="padding: 30px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <h2 class="stats-heading" style="font-size: 28px; margin-bottom: 15px;">{{ team_name }}</h2>
+                        <p class="stats-label" style="font-size: 18px; color: #555;">Conference:</p>
+                        <p class="stats-value" style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">The Summit League</p>
+                        <p class="stats-label" style="font-size: 18px; color: #555;">Previous Conference Finish:</p>
+                        <p class="stats-value" style="font-size: 20px; font-weight: 600;">1st</p>
+                    </div>
+                </div>
+                <div class="stats-box item-left">
+                    <div class="stats-item" style="padding: 30px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <h2 class="stats-heading" style="font-size: 28px; margin-bottom: 15px;">Statistics</h2>
+                        <p class="stats-label" style="font-size: 18px; color: #555;">Current Win Probability:</p>
+                        <p class="stats-value" style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">{{ latest_stat.win_chance }}</p>
+                        <p class="stats-label" style="font-size: 18px; color: #555;">Projected Score:</p>
+                        <p class="stats-value" style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">{{ latest_stat.projected_score }}</p>
+                        <p class="stats-label" style="font-size: 18px; color: #555;">Most Likely Finish:</p>
+                        <p class="stats-value" style="font-size: 20px; font-weight: 600;">{{ latest_stat.projected_most_likely_place }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-box item-right">
+                <canvas id="winChanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('winChanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{% for stat in team.stats %}'Week {{ stat.week.week_number }}',{% endfor %}],
+                datasets: [{
+                    label: 'Win Chance %',
+                    data: [{% for stat in team.stats %}{{ (stat.win_chance) * 100}},{% endfor %}],
+                    borderColor: '#1d5dbd',
+                    backgroundColor: 'rgba(29, 93, 189, 0.7)',
+                    tension: 0.1,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+        options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {display:false}
+                },
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>
