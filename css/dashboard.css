@@ -1,0 +1,572 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+    --primary-color: #1d5dbd;
+    --medium-color: #6086c0;
+    --light-color: #f4f4f6;
+    --dark-color: #111;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+    flex-direction: column;
+}
+
+/* New Top Navbar Styles */
+.navbar {
+    background: #fff;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+    .navbar .container-wide {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .main-menu ul {
+        display: flex;
+        list-style: none;
+    }
+
+    .navbar ul li {
+        list-style: none;
+    }
+
+        .navbar ul li a {
+            padding: 10px 20px;
+            display: block;
+            font-weight: 600;
+            text-decoration: none;
+            color: black;
+            transition: 0.5s;
+        }
+
+            .navbar ul li a:hover {
+                color: var(--primary-color, #007bff);
+            }
+
+            .navbar ul li a i {
+                margin-right: 10px;
+            }
+
+        .navbar ul li:last-child a {
+            margin-left: 10px;
+        }
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: white;
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    padding-top: 20px;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+    
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        padding-left: 20px;
+        padding-top: 10px;
+    }
+
+    .sidebar ul li a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: background 0.3s;
+        display: block;
+        padding: 10px;
+    }
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 220px;
+    margin-right: 20px;
+    margin-top: 60px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Charts */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 80%;
+}
+
+.chart-box {
+    background: white;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-box {
+    background: white;
+    padding: 25px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stats panel styles */
+.stats-panel {
+    display: flex; /* Enables horizontal layout */
+    flex-direction: column; /* Stack stats items vertically */
+    justify-content: flex-start; /* Aligns stats items to the top */
+    align-items: flex-start; /* Align items to the left */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    gap: 1rem; /* Adds spacing between stats items */
+    width: 250px; /* Sets a fixed width for the stats panel */
+}
+
+/* Individual stats item */
+.stats-item {
+    flex: 1; /* Ensures items take up equal space */
+    text-align: left; /* Align text to the left */
+    margin-bottom: 0; /* Removes additional margin to align with flex layout */
+}
+
+/* Stats heading */
+.stats-heading {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* Stats value */
+.stats-value {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #212529;
+}
+
+.item-left {
+    flex: 1 !important;
+}
+
+.item-right {
+    flex: 2 !important;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 80px 5px 20px;
+        overflow: hidden;
+    }
+
+        .sidebar a {
+            text-align: center;
+            font-size: 14px;
+        }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .chart-container {
+        flex-direction: column;
+    }
+}
+
+/* results Table */
+.results-table {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    color: black;
+}
+
+    .results-table thead th {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.025em;
+        border-bottom: 2px solid #e0e0e0;
+    }
+
+    .results-table th,
+    .results-table td {
+        text-align: left;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .results-table td {
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .results-table .fitted-column {
+        white-space: normal;
+    }
+
+    .results-table tbody tr:hover {
+        background-color: #fafafa;
+        transition: background-color 0.2s ease;
+    }
+
+    .results-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+/* Optional: Responsive styles */
+@media (max-width: 768px) {
+    .results-table th,
+    .results-table td {
+        padding: 0.75rem 1rem;
+    }
+}
+
+.results-table tr.expandable-content {
+    display: none;
+    background-color: #f9f9f9;
+}
+
+.results-table tr.expandable:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+/* Global hidden class for expandable sections */
+.hidden {
+    display: none;
+}
+
+/* Table styling */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .results-table th, .results-table td {
+        padding: 10px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .results-table th {
+        background-color: #f8f9fa;
+        color: #333;
+        font-weight: bold;
+    }
+
+
+/* Expandable rows */
+.expandable-content {
+    background: #f8f9fa;
+}
+
+.arrow-cell {
+    text-align: center;
+    max-width: 40px;
+    padding-left: 0; /* Remove left padding */
+}
+
+
+.expand-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    max-width: 40px;
+    padding-left: 0px;
+    color: var(--primary-color);
+}
+
+/* Expanded content styling */
+.expandable-container {
+    padding: 20px;
+    background: #f8f9fa;
+    width: 100%; /* Ensure it spans the full width */
+}
+
+.expandable-inner {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%; /* Full-width inner container */
+}
+
+/* List styling for events and scoring athletes */
+.event-list, .scoring-athletes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for scoring athletes expandable row */
+.scoring-athletes {
+    list-style-type: none;
+    padding: 2%;
+    margin: 0;
+}
+
+    .scoring-athletes li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .scoring-athletes li:last-child {
+            border-bottom: none;
+        }
+
+.athlete-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.athlete-points {
+    font-weight: bold;
+    margin-right: auto;
+}
+
+.tfrrs-link {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+    .tfrrs-link:hover {
+        text-decoration: underline;
+    }
+
+.expanded-title {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 2px solid;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+.event-item, .athlete-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+    .event-item:last-child, .athlete-item:last-child {
+        border-bottom: none; /* Remove border for the last item */
+    }
+
+.event-name, .athlete-name {
+    font-weight: 500;
+}
+
+.event-points, .athlete-points {
+    font-weight: 600;
+}
+
+/* Titles */
+.expanded-title {
+    margin: 0 0 15px 0;
+    color: var(--primary-color);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+h3.expanded-title {
+    margin-bottom: 0;
+}
+
+/* Miscellaneous */
+.fitted-column, .fitted-column-2 {
+    white-space: nowrap;
+}
+
+.tfrrs-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+    .tfrrs-link:hover {
+        text-decoration: underline;
+    }
+
+/* Styles for expandable content */
+.expandable-content {
+    display: none;
+}
+
+    .expandable-content td {
+        padding: 0; /* Remove padding to align with the table */
+    }
+
+        .expandable-content td[colspan] {
+            background: #f8f9fa; /* Match the expandable background */
+        }
+
+/* Text Classes */
+.text-xxl {
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0px 0 20px;
+}
+
+.text-xl {
+    font-size: 2.2rem;
+    line-height: 1.4;
+    font-weight: normal;
+    margin: 40px 0 20px;
+}
+
+.text-lg {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    font-weight: normal;
+    margin: 30px 0 20px;
+}
+
+.text-md {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: normal;
+    margin: 20px 0 10px;
+}
+
+.text-sm {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-weight: normal;
+    margin: 10px 0 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.info-content {
+    width: 500px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 10px;
+}
+
+    .info-item:hover {
+        background-color: #f9f9f9;
+        cursor: pointer;
+    }
+
+        .info-item:hover .edit-icon {
+            display: block !important;
+        }
+
+.bold-text {
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 13px 20px;
+    background: var(--light-color);
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.5s;
+}
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+.btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.btn-dark {
+    background: var(--dark-color);
+    color: #fff;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
